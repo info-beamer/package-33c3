@@ -1,0 +1,76 @@
+{
+    "name": "Content Player",
+    "options": [{
+        "title": "Time Zone",
+        "ui_width": 4,
+        "name": "timezone",
+        "type": "select",
+        "hint": "The timezone",
+        "options": [
+            ["UTC", "UTC"],
+            ["Europe/Berlin", "Europa / Berlin"]
+        ],
+        "default": "UTC"
+    }, {
+        "title": "Tracks",
+        "name": "tracks",
+        "type": "list",
+        "itemname": "Track",
+        "items": [{
+            "title": "Playlist",
+            "name": "playlist",
+            "type": "list",
+            "itemname": "Item",
+            "items": [{
+                "title": "Item",
+                "ui_width": 6,
+                "name": "item",
+                "type": "resource",
+                "valid": ["child", "image", "video"],
+                "default": "empty.png"
+            }, {
+                "title": "Duration",
+                "ui_width": 3,
+                "name": "duration",
+                "type": "duration",
+                "default": 4
+            }, {
+                "title": "Transition",
+                "ui_width": 3,
+                "name": "transition",
+                "type": "duration",
+                "default": 0.5
+            }, {
+                "title": "x1",
+                "ui_width": 3,
+                "name": "x1",
+                "type": "integer",
+                "default": 0
+            }, {
+                "title": "y1",
+                "ui_width": 3,
+                "name": "y1",
+                "type": "integer",
+                "default": 0
+            }, {
+                "title": "x2",
+                "ui_width": 3,
+                "name": "x2",
+                "type": "integer",
+                "default": 1920
+            }, {
+                "title": "y2",
+                "ui_width": 3,
+                "name": "y2",
+                "type": "integer",
+                "default": 1080
+            }, {
+                "title": "Custom Settings",
+                "ui_width": 12,
+                "name": "custom",
+                "type": "json",
+                "default": {}
+            }]
+        }]
+    }]
+}

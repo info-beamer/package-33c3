@@ -1,0 +1,112 @@
+#!/usr/bin/python2.7
+import requests, json, re, sys, os
+
+area_re = re.compile("^#area\((.*)\)").match
+setup_re = re.compile("^#setup_id (.*)").match
+duration_re = re.compile('^([0-9]+(\.[0-9]+)?)').match
+item_re = re.compile("(([\w.-]+)\((\w+)(,({.*?}))?\))").finditer
+
+s = requests.Session()
+s.auth = ("", os.environ['ACCESS_KEY'])
+
+r = s.get("https://info-beamer.com/api/v1/asset/list")
+assets = dict(
+    (asset['filename'], asset['id'])
+    for asset in r.json()['assets']
+)
+print assets
+
+def parse(filename):
+    areas = {}
+    tracks = {}
+    transition = 0.2
+    offset = 0
+    setup_id = None
+
+    for line in file(filename, "rb"):
+        line = line.strip()
+        if not line:
+            continue
+
+        if line.startswith("# "):
+            continue
+
+        m = setup_re(line)
+        if m:
+            print "confi"
+            setup_id = int(m.group(1))
+            continue
+
+        m = area_re(line)
+        if m:
+            name, x1, y1, x2, y2 = m.group(1).split(',')
+            areas[name] = int(x1), int(y1), int(x2), int(y2)
+            continue
+
+        m = duration_re(line)
+        duration = float(m.group(1))
+        print "offset %f, duration %f" % (offset, duration)
+
+        items = list(item_re(line))
+        for m in items:
+            track = tracks.setdefault(m.start(), [])
+            # print "XXXXX", m.groups()
+            _, item, area, _, custom = m.groups()
+            item = dict(
+                item = item,
+                area = areas[area],
+                offset = offset,
+                custom = json.loads(custom) if custom else {}
+            )
+            track.append(item)
+
+        offset += duration
+
+    for track, items in tracks.iteritems():
+        print "TRACK: ", track
+        for idx, item in enumerate(items):
+            next_item = items[idx+1] if idx+1 < len(items) else None
+            print item, next_item
+            item['duration'] = next_item['offset'] - item['offset'] \
+                if next_item else offset - item['offset']
+            print "=>", item
+        if items[0]['offset'] > 0:
+            raise ValueError('track %d has empty start' % track)
+
+    print "total duration: %f" % offset
+    print "areas: %d" % len(areas)
+    print "tracks: %d" % len(tracks)
+
+    out = {'tracks': []}
+    out_tracks = out['tracks']
+    for _, items in sorted(tracks.iteritems()):
+        out_playlist = []
+        out_tracks.append(dict(playlist=out_playlist))
+        for item in items:
+            x1, y1, x2, y2 = item['area']
+            out_playlist.append(dict(
+                item = assets.get(item['item'], item['item']),
+                duration = item['duration'],
+                x1 = x1,
+                y1 = y1,
+                x2 = x2,
+                y2 = y2,
+                transition = transition,
+                custom = item['custom'],
+            ))
+    return setup_id, out
+
+setup_id, config = parse(sys.argv[1])
+import pprint
+pprint.pprint(config)
+if raw_input("activate on %d? [y/N]> " % setup_id) == "y":
+    r = s.post("https://info-beamer.com/api/v1/setup/%d" % setup_id,
+        data = {
+            "config": json.dumps({
+                "": config,
+            }),
+            "mode": "update",
+        }
+    )
+    print r
+    print r.json()

@@ -1,0 +1,66 @@
+{
+    "name": "Scroller",
+    "options": [{
+        "title": "Scroller",
+        "type": "section"
+    }, {
+        "title": "Font",
+        "ui_width": 3,
+        "name": "font",
+        "type": "font",
+        "doc_link": true,
+        "default": "default-font.ttf"
+    }, {
+        "title": "Font Color",
+        "ui_width": 2,
+        "type": "color",
+        "name": "color",
+        "default": [1,1,1,1]
+    }, {
+        "title": "Background",
+        "ui_width": 3,
+        "name": "background",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "black.png"
+    }, {
+        "title": "Margin",
+        "ui_width": 2,
+        "name": "margin",
+        "type": "select",
+        "options": [
+            [0, "0 (default)"],
+            [10, "10"],
+            [20, "20"],
+            [30, "30"]
+        ],
+        "default": 0
+    }, {
+        "title": "Scroll Speed",
+        "ui_width": 2,
+        "name": "speed",
+        "type": "select",
+        "options": [
+            [100, "Normal"],
+            [140, "Faster"],
+            [180, "Even faster"],
+            [250, "Hyperspeed"]
+        ],
+        "default": 100
+    }, {
+        "title": "Additional Texts",
+        "name": "texts",
+        "type": "list",
+        "itemname": "Text",
+        "items": [{
+            "title": "Text in Scroller",
+            "ui_width": 12,
+            "name": "text",
+            "type": "string",
+            "default": ""
+        }]
+    }],
+    "deferred": [
+        "tile.lua"
+    ]
+}

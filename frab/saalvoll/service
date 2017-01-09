@@ -1,0 +1,14 @@
+#!/usr/bin/python
+import time, json, requests
+
+def main():
+    while 1:
+        time.sleep(10)
+        r = requests.get('https://saalvoll.infobeamer.com/get', timeout=30)
+        data = r.json()
+        with file("../saalvoll.json", "wb") as f:
+            f.write(json.dumps(data))
+        time.sleep(10)
+
+if __name__ == "__main__":
+    main()

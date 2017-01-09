@@ -1,0 +1,187 @@
+{
+    "name": "Frab Module",
+    "permissions": {
+        "network": "Has to fetch schedule from remote site"
+    },
+    "options": [{
+        "title": "Appearance",
+        "type": "section"
+    }, {
+        "title": "Font",
+        "ui_width": 3,
+        "name": "font",
+        "type": "font",
+        "default": "default-font.ttf"
+    }, {
+        "title": "Content Background",
+        "ui_width": 3,
+        "name": "background",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "empty.png"
+    }, {
+        "title": "Header Color",
+        "ui_width": 2,
+        "name": "header_color",
+        "type": "color",
+        "default": [1,1,1,1]
+    }, {
+        "title": "Content Color",
+        "ui_width": 2,
+        "name": "content_color",
+        "type": "color",
+        "default": [1,1,1,1]
+    }, {
+        "title": "Margin",
+        "ui_width": 2,
+        "name": "margin",
+        "type": "select",
+        "options": [
+            [10, "10"],
+            [20, "20"],
+            [30, "30"],
+            [40, "40"],
+            [60, "60"],
+            [80, "80"]
+        ],
+        "default": 10
+    }, {
+        "title": "Next Talk",
+        "ui_width": 3,
+        "name": "next_talk",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "empty.png"
+    }, {
+        "title": "This Talk",
+        "ui_width": 3,
+        "name": "this_talk",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "empty.png"
+    }, {
+        "title": "Other Talks",
+        "ui_width": 3,
+        "name": "other_talks",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "empty.png"
+    }, {
+        "title": "Room Info",
+        "ui_width": 3,
+        "name": "room_info",
+        "type": "resource",
+        "valid": ["image"],
+        "default": "empty.png"
+    }, {
+        "title": "Room Font",
+        "ui_width": 3,
+        "name": "room_font",
+        "type": "font",
+        "default": "default-font.ttf"
+    }, {
+        "title": "Info Bar Font",
+        "ui_width": 3,
+        "name": "info_bar_font",
+        "type": "font",
+        "default": "default-font.ttf"
+    },
+
+    {
+        "title": "Scheduling",
+        "type": "section"
+    },{
+        "title": "Time Zone",
+        "ui_width": 4,
+        "name": "timezone",
+        "type": "select",
+        "hint": "The timezone",
+        "options": [
+            ["UTC", "UTC"],
+            ["Europe/Berlin", "Europa / Berlin"]
+        ],
+        "default": "UTC"
+    }, {
+        "title": "Day 0",
+        "ui_width": 4,
+        "name": "day0",
+        "type": "string",
+        "hint": "Day 0 (DD.MM.YYYY)",
+        "default": "26.12.2016"
+    }, {
+        "title": "Fahrplan Urls",
+        "name": "schedule_urls",
+        "doc_link": true,
+        "type": "list",
+        "itemname": "Url",
+        "hint": "List all fahrplans. They will be merged",
+        "items": [{
+            "title": "Url",
+            "ui_width": 9,
+            "name": "url",
+            "type": "string",
+            "default": "http://localhost/"
+        }, {
+            "title": "Group",
+            "ui_width": 3,
+            "name": "group",
+            "type": "select",
+            "options": [
+                ["primary", "Primary"],
+                ["secondary1", "Seconday 1"],
+                ["secondary2", "Seconday 2"],
+                ["secondary3", "Seconday 3"]
+            ],
+            "default": "primary"
+        }]
+    }, {
+        "title": "Rooms",
+        "name": "rooms",
+        "doc_link": true,
+        "type": "list",
+        "itemname": "Room",
+        "hint": "Room definitions",
+        "items": [{
+            "title": "Schedule Name",
+            "ui_width": 3,
+            "name": "name",
+            "type": "string",
+            "default": ""
+        }, {
+            "title": "Display Name",
+            "ui_width": 3,
+            "name": "name_short",
+            "type": "string",
+            "default": ""
+        }, {
+            "title": "Serial",
+            "ui_width": 3,
+            "name": "serial",
+            "type": "device",
+            "default": ""
+        }, {
+            "title": "Group",
+            "ui_width": 3,
+            "name": "group",
+            "type": "select",
+            "options": [
+                ["*", "All"],
+                ["primary", "Primary"],
+                ["secondary1", "Seconday 1"],
+                ["secondary2", "Seconday 2"],
+                ["secondary3", "Seconday 3"]
+            ],
+            "default": "primary"
+        }, {
+            "title": "Info screen content",
+            "ui_width": 12,
+            "name": "info",
+            "type": "text",
+            "rows": 6,
+            "default": ""
+        }]
+    }],
+    "deferred": [
+        "tile.lua"
+    ]
+}

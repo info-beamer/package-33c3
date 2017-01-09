@@ -1,0 +1,46 @@
+#!/usr/bin/python
+import sys
+import time
+import pytz
+from datetime import datetime
+from calendar import timegm
+
+from hosted import CONFIG, NODE
+CONFIG.restart_on_update()
+
+diff = datetime(2016,12,27, 14,20,00) - datetime.utcnow() 
+diff = datetime(2016,12,27, 14,00,00) - datetime.utcnow() 
+
+def current_time():
+    now = datetime.utcnow() # + diff
+    timestamp = timegm(now.timetuple()) + now.microsecond / 1000000.
+    return now, timestamp
+
+def send_clock(now, ts):
+    now = now.replace(tzinfo=pytz.utc)
+    now = now.astimezone(pytz.timezone(CONFIG['timezone']))
+    now = now.replace(tzinfo=None)
+
+    since_midnight = (
+        now -
+        now.replace(hour=0, minute=0, second=0, microsecond=0)
+    )
+    since_midnight = since_midnight.seconds + since_midnight.microseconds / 1000000.
+
+    NODE.send('/clock/set:%f' % ts)
+    NODE.send('/clock/midnight:%f' % since_midnight)
+
+def main():
+    while 1:
+        now, ts = current_time()
+        if now.year < 2000:
+            print >>sys.stderr, "too soon"
+            time.sleep(1)
+            continue
+
+        print >>sys.stderr, "time is", now, ts
+        send_clock(now, ts)
+        time.sleep(2)
+
+if __name__ == "__main__":
+    main()

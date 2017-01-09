@@ -1,0 +1,5 @@
+{
+    "name": "Saalvoll",
+    "permissions": {"network": "HTTP requests"},
+    "options": []
+}
