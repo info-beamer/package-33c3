@@ -6,7 +6,7 @@ uses a mostly fixed layout of scroller, main content and an
 optional sidebar. This version is more flexible: Basically
 you can define tiles with changing sizes that show the
 various content modules available. Hiding a scroller can
-for example easily be done by moving the slider tile out of
+for example easily be done by moving the scroller tile out of
 the screen and resizing the main content tile. All content
 is scheduled with a fixed duration. Multiple devices using
 the same schedule will show the same tiles at the same time.
