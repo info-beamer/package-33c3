@@ -5,10 +5,10 @@ and layout. [Last years version](https://github.com/info-beamer/package-32c3-scr
 uses a mostly fixed layout of scroller, main content and an
 optional sidebar. This version is more flexible: Basically
 you can define tiles with changing sizes that show the
-various content modules available. A hidding scroller can
+various content modules available. Hiding a scroller can
 for example easily be done by moving the slider tile out of
 the screen and resizing the main content tile. All content
-is schedule with a fixed duration. Multiple devices using
+is scheduled with a fixed duration. Multiple devices using
 the same schedule will show the same tiles at the same time.
 But this also means that it is not possible to have content
 of variable duration. So the schedule is pretty rigid.
