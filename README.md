@@ -1,7 +1,7 @@
 # The info-beamer hosted package running at 33c3
 
 For 33c3 I've developed a new approach to scheduling
-and layout. [Last years version](https://github.com/info-beamer/package-32c3-screens)
+and layout. [Last year's version](https://github.com/info-beamer/package-32c3-screens)
 uses a mostly fixed layout of scroller, main content and an
 optional sidebar. This version is more flexible: Basically
 you can define tiles with changing sizes that show the
@@ -95,7 +95,7 @@ difficult to follow. I tried to make everything as clear as
 possible but this still isn't a substitute for proper
 documentation. These congress packages are always a way to
 play with new ideas without really knowing if they work out
-in the end. It seems like this years version worked pretty
+in the end. It seems like this year's version worked pretty
 well, so I'll probably further develop the approach taken in
 this package so it will end up being fully supported and
 documented. But that might take some time.
